@@ -31,7 +31,7 @@ public class FiltreMembre implements Filter {
 		
 		HttpSession session = requete.getSession();
 		
-		if ( (boolean)session.getAttribute( "isConnecte") == true)
+		if ((boolean) session.getAttribute( "isConnecte"))
 		{
 			chain.doFilter(requete, reponse);
 		}

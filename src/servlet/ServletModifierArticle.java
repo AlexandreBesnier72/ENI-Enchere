@@ -29,16 +29,16 @@ import metier.SecuriteVente;
 public class ServletModifierArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BeanArticleVendu article = new BeanArticleVendu();
-		BeanRetrait retrait = new BeanRetrait();
-		DaoRetrait daoRetrait  = new DaoRetrait();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		BeanArticleVendu article;
+		BeanRetrait retrait;
 		HttpSession session =  request.getSession();
 
 		article = (BeanArticleVendu) session.getAttribute("article");
 
 		try {
-			retrait = daoRetrait.obtenirRetrait(article.getNoArticle());
+			retrait = DaoRetrait.obtenirRetrait(article.getNoArticle());
 			request.setAttribute("retrait", retrait);
 			request.getRequestDispatcher("/WEB-INF/membre/modifierArticle.jsp").forward(request, response);
 
@@ -48,15 +48,12 @@ public class ServletModifierArticle extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		DaoArticlesVendus daoArticlesVendus = new DaoArticlesVendus();
-		DaoRetrait daoRetrait = new DaoRetrait();
-		DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		HttpSession session = request.getSession();
-		String erreurArticle = null;
-		String erreurRetrait = null;
-		BeanArticleVendu articleActuel  = new BeanArticleVendu();
+		String erreurArticle;
+		String erreurRetrait;
+		BeanArticleVendu articleActuel;
 
 		articleActuel = (BeanArticleVendu) session.getAttribute("article");
 
@@ -71,8 +68,6 @@ public class ServletModifierArticle extends HttpServlet {
 
 		try
 		{
-			BeanUtilisateur utilisateur = daoUtilisateur.utilisateurParPseudo((String) session.getAttribute("pseudo"));
-
 			try
 			{
 				parseDebut = format.parse(request.getParameter("dateDebutEncheres"));
@@ -86,8 +81,6 @@ public class ServletModifierArticle extends HttpServlet {
 			java.sql.Date dateFinEncheres = new java.sql.Date(parseFin.getTime());
 
 			int prixInitial = Integer.valueOf( request.getParameter("prixInitial") );
-			int prixVente = Integer.valueOf( request.getParameter("prixInitial") );
-
 
 			int noCategorie = Integer.valueOf( request.getParameter("noCategorie") );
 			String photoUrl = request.getParameter("photo");
@@ -111,7 +104,7 @@ public class ServletModifierArticle extends HttpServlet {
 
 			if (erreurArticle.isEmpty())
 			{
-				daoArticlesVendus.modifierArticle(articleVendu);
+				DaoArticlesVendus.modifierArticle(articleVendu);
 				session.setAttribute("article", articleVendu);
 			}
 			else
@@ -126,7 +119,7 @@ public class ServletModifierArticle extends HttpServlet {
 
 			BeanRetrait retrait = new BeanRetrait();
 
-			retrait.setNoArticle( daoArticlesVendus.numeroArticleParProprietes(articleVendu) );
+			retrait.setNoArticle( DaoArticlesVendus.numeroArticleParProprietes(articleVendu) );
 
 			retrait.setRue(rue);
 			retrait.setCodePostal(codePostal);
@@ -136,7 +129,7 @@ public class ServletModifierArticle extends HttpServlet {
 			erreurRetrait = SecuriteVente.verifRetrait(retrait);
 			if (erreurRetrait.isEmpty())
 			{
-				daoRetrait.modifierRetrait(retrait);
+				DaoRetrait.modifierRetrait(retrait);
 				System.out.println(retrait);
 				session.setAttribute("retrait", retrait);
 				session.setAttribute("succes", "Modification de l'objet réussie");

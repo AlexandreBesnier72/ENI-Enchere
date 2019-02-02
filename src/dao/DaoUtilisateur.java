@@ -48,7 +48,7 @@ public class DaoUtilisateur
 	 * @param utilisateur Utilisateur courant.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public void ajouterUtilisateur(BeanUtilisateur utilisateur) throws DaoException
+	public static void ajouterUtilisateur(BeanUtilisateur utilisateur) throws DaoException
 	{
 		try(Connection connexion = AccesBase.dbConnexion())
 		{
@@ -88,7 +88,7 @@ public class DaoUtilisateur
 	 * @return L'utilisateur recherché par son pseudo.
 	 * @throws DaoException Propagation de l'exception.
 	 */
-	public BeanUtilisateur utilisateurParPseudo(String pseudo) throws DaoException
+	public static BeanUtilisateur utilisateurParPseudo(String pseudo) throws DaoException
 	{
 		// On créée un nouvel utilisateur temporaire 
 		BeanUtilisateur utilisateurTrouve = new BeanUtilisateur();
@@ -135,7 +135,7 @@ public class DaoUtilisateur
 	 * @return L'utilisateur recherché par son numéro.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public BeanUtilisateur utilisateurParNumero(int noUtilisateur) throws DaoException
+	public static BeanUtilisateur utilisateurParNumero(int noUtilisateur) throws DaoException
 	{
 		// On créé un nouvel utilisateur temporaire 
 		BeanUtilisateur utilisateurTrouve = new BeanUtilisateur();
@@ -181,7 +181,7 @@ public class DaoUtilisateur
 	 * @param nouvelUtilisateur L'tilisateur courant ciblé par la modification.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public void modifierUtilisateur(BeanUtilisateur nouvelUtilisateur) throws DaoException
+	public static void modifierUtilisateur(BeanUtilisateur nouvelUtilisateur) throws DaoException
 	{
 		// On récupère l'utilisateur courant avec les champs à modifier sauf le numéro d'utilisateur, on peut
 		// donc utiliser ce numéro pour vérifier qu'on modifie le bon utilisateur		
@@ -220,7 +220,7 @@ public class DaoUtilisateur
 	 * @param utilisateur L'utilisateur ciblé par la suppression.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public void supprimerUtilisateur( BeanUtilisateur utilisateur) throws DaoException
+	public static void supprimerUtilisateur( BeanUtilisateur utilisateur) throws DaoException
     {
         try(Connection connexion = AccesBase.dbConnexion())
 		{
@@ -247,7 +247,7 @@ public class DaoUtilisateur
 	 * @return L'utilisateur.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public BeanUtilisateur connexionUtilisateur(String identifiant, String motDePasse) throws DaoException
+	public static BeanUtilisateur connexionUtilisateur(String identifiant, String motDePasse) throws DaoException
 	{
 		// On créé un nouvel utilisateur temporaire 
 		BeanUtilisateur utilisateurTrouve = new BeanUtilisateur();
@@ -296,7 +296,7 @@ public class DaoUtilisateur
 	 * @return Les crédits de l'utilisateur.
 	 * @throws DaoException Propagation de l'exception. 
 	 */
-	public int afficherCredit(BeanUtilisateur utilisateur) throws DaoException
+	public static int afficherCredit(BeanUtilisateur utilisateur) throws DaoException
 	{
 		int creditUtilisateur = 0;
 		
@@ -339,7 +339,7 @@ public class DaoUtilisateur
 	 * @param derniereEnchere La dernière enchère effectuée.
 	 * @throws DaoException Propage de l'exception.
 	 */
-	public void recrediterUtilisateur(BeanEnchere derniereEnchere) throws DaoException
+	public static void recrediterUtilisateur(BeanEnchere derniereEnchere) throws DaoException
 	{		
 		try(Connection connexion = AccesBase.dbConnexion())
 		{
@@ -367,7 +367,7 @@ public class DaoUtilisateur
 	 * @param montant_enchere Le montant de l'enchère.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public void debiterUtilisateur(BeanUtilisateur utilisateur,int montant_enchere) throws DaoException
+	public static void debiterUtilisateur(BeanUtilisateur utilisateur,int montant_enchere) throws DaoException
 	{
 		try(Connection connexion = AccesBase.dbConnexion())
 		{
@@ -395,7 +395,7 @@ public class DaoUtilisateur
 	 * @return Réponse de la vérification.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public boolean isPseudoExistant(String pseudo) throws DaoException
+	public static boolean isPseudoExistant(String pseudo) throws DaoException
 	{
 		boolean validation = true;		
 
@@ -436,7 +436,7 @@ public class DaoUtilisateur
 	 * @return Réponse de la validation.
 	 * @throws DaoException Propagation de l'exception. 
 	 */
-	public boolean isEmailExistant(String email) throws DaoException
+	public static boolean isEmailExistant(String email) throws DaoException
 	{
 		boolean validation = true;
 
@@ -481,7 +481,7 @@ public class DaoUtilisateur
 	 * @param motDePasse Le mot de passe de l'utilisateur.
 	 * @return Réponse de la validation.
 	 */
-	public boolean isMotDePasseFormatOk(String motDePasse)
+	public static boolean isMotDePasseFormatOk(String motDePasse)
 	{
 		boolean validation = false;
 
@@ -504,7 +504,7 @@ public class DaoUtilisateur
 	 * @return Un utilisateur temporaire.
 	 * @throws SQLException Propage l'exception.
 	 */
-	private void mappingUtilisateur(BeanUtilisateur utilisateurTemporaire, ResultSet rs) throws SQLException
+	private static void mappingUtilisateur(BeanUtilisateur utilisateurTemporaire, ResultSet rs) throws SQLException
 	{
 		utilisateurTemporaire.setNoUtilisateur(rs.getInt("no_utilisateur"));
 		utilisateurTemporaire.setPseudo(rs.getString("pseudo"));

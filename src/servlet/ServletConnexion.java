@@ -37,7 +37,7 @@ public class ServletConnexion extends HttpServlet {
 
 		session.setAttribute("isAdministrateur", isAdministrateur);
 		
-		if((boolean)session.getAttribute("isConnecte") == false)
+		if(!(boolean)session.getAttribute("isConnecte"))
 		{
 			request.getRequestDispatcher("/WEB-INF/connexion.jsp").forward( request,  response);
 		}
@@ -49,9 +49,8 @@ public class ServletConnexion extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		BeanUtilisateur utilisateurLog = new BeanUtilisateur();
-		DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
-		
+		BeanUtilisateur utilisateurLog;
+
 		String identifiant = request.getParameter( "identifiant" );
 		String motDePasse = request.getParameter( "motDePasse" );	
 		
@@ -59,7 +58,7 @@ public class ServletConnexion extends HttpServlet {
 
 		try
 		{			
-			utilisateurLog = daoUtilisateur.connexionUtilisateur(identifiant,motDePasse);
+			utilisateurLog = DaoUtilisateur.connexionUtilisateur(identifiant,motDePasse);
 			
 			if( utilisateurLog != null )
 			{

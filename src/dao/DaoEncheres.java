@@ -29,7 +29,7 @@ public class DaoEncheres
 	 * @param nouvelleEnchere L'enchère ciblée par la méthode.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public void nouvelleEnchere(BeanEnchere nouvelleEnchere) throws DaoException
+	public static void nouvelleEnchere(BeanEnchere nouvelleEnchere) throws DaoException
 	{	
 		String ajoutEnchere = "";
 		
@@ -91,7 +91,7 @@ public class DaoEncheres
 	 * @return Retourne l'enchère si elle a été trouvée.
 	 * @throws DaoException Propagation de l'exception.
 	 */
-	public BeanEnchere derniereEnchere(int noArticle) throws DaoException
+	public static BeanEnchere derniereEnchere(int noArticle) throws DaoException
 	{
 		BeanEnchere enchereTrouvee = new BeanEnchere();
 		
@@ -137,7 +137,7 @@ public class DaoEncheres
 	 * @return Retourne soit une liste d'enchère, soit une valeur null.
 	 * @throws DaoException Lever et propagation de l'exception.
 	 */
-	public List<BeanEnchere> listerEncheres() throws DaoException
+	public static List<BeanEnchere> listerEncheres() throws DaoException
 	{
 		List<BeanEnchere> listeResultats = new ArrayList<BeanEnchere>();
 		

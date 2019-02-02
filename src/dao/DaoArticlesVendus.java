@@ -121,7 +121,7 @@ public class DaoArticlesVendus
 	 * @return Retourne le résultat des recherches filtrées sous forme de Map pour les catégoriser sur la page de recherche.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public HashMap<String, List<BeanArticleVendu>> rechercher(BeanFiltreRecherche filtre, int noUtilisateur) throws DaoException
+	public static HashMap<String, List<BeanArticleVendu>> rechercher(BeanFiltreRecherche filtre, int noUtilisateur) throws DaoException
 	{
 		List<BeanArticleVendu> encheresO= new ArrayList<>();
 		List<BeanArticleVendu> mesEncheresEC= new ArrayList<>();
@@ -314,7 +314,7 @@ public class DaoArticlesVendus
 	 * @param nouvelArticle Le nouvel article que l'on va rajouter.
 	 * @throws DaoException Propagation de l'exception.
 	 */
-	public void ajouterArticle(BeanArticleVendu nouvelArticle) throws DaoException
+	public static void ajouterArticle(BeanArticleVendu nouvelArticle) throws DaoException
 	{		
 		try(Connection connexion = AccesBase.dbConnexion())
 		{
@@ -348,7 +348,7 @@ public class DaoArticlesVendus
 	 * @return Retourne le numéro de l'article recherché.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public int numeroArticleParProprietes(BeanArticleVendu articleRecherche) throws DaoException
+	public static int numeroArticleParProprietes(BeanArticleVendu articleRecherche) throws DaoException
 	{
 		int noArticleTrouve = 0;
 		
@@ -399,7 +399,7 @@ public class DaoArticlesVendus
 	 * @return Retourne l'article recherché par son numéro.
 	 * @throws DaoException Propagation de l'exception.
 	 */
-	public BeanArticleVendu articleParNumero(int no_article) throws DaoException
+	public static BeanArticleVendu articleParNumero(int no_article) throws DaoException
 	{
 		BeanArticleVendu articleTrouve = new BeanArticleVendu();
 		
@@ -443,7 +443,7 @@ public class DaoArticlesVendus
 	 * @param modifArticle L'article modifié.
 	 * @throws DaoException Ereeur gérée par la DaoException lors de sa levée.
 	 */
-	public void modifierArticle(BeanArticleVendu modifArticle) throws DaoException
+	public static void modifierArticle(BeanArticleVendu modifArticle) throws DaoException
 	{		
 		try (Connection connexion = AccesBase.dbConnexion()) 
 		{
@@ -477,7 +477,7 @@ public class DaoArticlesVendus
 	 * @param nouveauPrix Le nouveau prix suite à une enchère.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public void modifierPrixArticle(int noArticle,int nouveauPrix) throws DaoException
+	public static void modifierPrixArticle(int noArticle,int nouveauPrix) throws DaoException
 	{		
 		try(Connection connexion = AccesBase.dbConnexion())
 		{
@@ -508,7 +508,7 @@ public class DaoArticlesVendus
 	 * @return Renvoie la liste des résultats trouvés pour la requête filtrée.
 	 * @throws DaoException : Propagation si une exception est soulevée par les PreparedStatements ou les ResultSets.
 	 */
-	private List<BeanArticleVendu> affinageRecherche(BeanFiltreRecherche filtre, int noUtilisateur, 
+	private static List<BeanArticleVendu> affinageRecherche(BeanFiltreRecherche filtre, int noUtilisateur,
 			String sqlRecherche, String statut, Connection connexion) throws DaoException
 	{
 		// Création d'une liste pour les résultats de requête
@@ -627,7 +627,7 @@ public class DaoArticlesVendus
 	}
 	
 	
-	public void supprimerArticle(int noArticle) throws DaoException
+	public static void supprimerArticle(int noArticle) throws DaoException
 	{
 		String sqlSuppression = SUPPRIMER_ARTICLE;
 		try(Connection connexion = AccesBase.dbConnexion())
@@ -656,7 +656,7 @@ public class DaoArticlesVendus
 	 * @throws SQLException Exception levée lors d'une erreur d'accès à la base de données 
 	 * ou toute autre erreur relative à la base de données.
 	 */
-	private void mappingArticle(BeanArticleVendu articleTrouve, ResultSet rs) throws SQLException
+	private static void mappingArticle(BeanArticleVendu articleTrouve, ResultSet rs) throws SQLException
 	{
 		articleTrouve.setNoArticle(rs.getInt("no_article"));
 		articleTrouve.setNomArticle(rs.getString("nom_article"));

@@ -33,13 +33,10 @@ public class ServletAjoutArticle extends HttpServlet
     {
 		HttpSession session = request.getSession();
 		
-        DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
-        DaoArticlesVendus daoArticlesVendus = new DaoArticlesVendus();
-        DaoRetrait daoRetrait = new DaoRetrait();
-        BeanUtilisateur utilisateur = new BeanUtilisateur();
+        BeanUtilisateur utilisateur;
         BeanArticleVendu articleVendu = new BeanArticleVendu();
         BeanRetrait retrait = new BeanRetrait();
-        int noUtilisateur = 0;
+        int noUtilisateur;
         
         // Dates
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -47,7 +44,7 @@ public class ServletAjoutArticle extends HttpServlet
         Date parseFin = new Date();
         
     	// erreurs
-        String erreurArticle = "";
+        String erreurArticle;
         String erreurRetrait = "";
 
         // article
@@ -80,7 +77,7 @@ public class ServletAjoutArticle extends HttpServlet
 	        java.sql.Date dateDebutEncheres = new java.sql.Date(parseDebut.getTime());
 	        java.sql.Date dateFinEncheres = new java.sql.Date(parseFin.getTime());
 	
-	        utilisateur = daoUtilisateur.utilisateurParPseudo( (String) session.getAttribute("pseudo") );	
+	        utilisateur = DaoUtilisateur.utilisateurParPseudo( (String) session.getAttribute("pseudo") );
 	
 	        noUtilisateur = utilisateur.getNoUtilisateur();
 	
@@ -99,8 +96,8 @@ public class ServletAjoutArticle extends HttpServlet
 	        erreurArticle = SecuriteVente.verifArticle(articleVendu);
 	        if (erreurArticle.isEmpty())
 	        {
-	        	daoArticlesVendus.ajouterArticle(articleVendu);
-	        	int noArticleVendu = daoArticlesVendus.numeroArticleParProprietes(articleVendu);
+	        	DaoArticlesVendus.ajouterArticle(articleVendu);
+	        	int noArticleVendu = DaoArticlesVendus.numeroArticleParProprietes(articleVendu);
 	        	
 	        	retrait.setNoArticle( noArticleVendu );
 		        retrait.setRue(rue);
@@ -111,11 +108,11 @@ public class ServletAjoutArticle extends HttpServlet
 	        	erreurRetrait = SecuriteVente.verifRetrait(retrait);
 		        if (erreurRetrait.isEmpty())
 		        {					
-		        	daoRetrait.ajouterRetrait(retrait);
+		        	DaoRetrait.ajouterRetrait(retrait);
 		        }   
 		        else
 		        {
-		        	daoArticlesVendus.supprimerArticle(noArticleVendu);
+		        	DaoArticlesVendus.supprimerArticle(noArticleVendu);
 		        }
 	        }
 	        
@@ -142,16 +139,14 @@ public class ServletAjoutArticle extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
-        DaoCategorie daoCategorie = new DaoCategorie();
-        DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
-        BeanUtilisateur utilisateur = new BeanUtilisateur();
+        BeanUtilisateur utilisateur;
         BeanRetrait retrait = new BeanRetrait();
-        List<BeanCategorie> listeCategories = new ArrayList<>();
+        List<BeanCategorie> listeCategories;
 
         try
         {
-            utilisateur = daoUtilisateur.utilisateurParPseudo( (String) session.getAttribute("pseudo") );
-            listeCategories = daoCategorie.listerCategories();
+            utilisateur = DaoUtilisateur.utilisateurParPseudo( (String) session.getAttribute("pseudo") );
+            listeCategories = DaoCategorie.listerCategories();
             
             if(utilisateur != null)
             {

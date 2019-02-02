@@ -24,7 +24,7 @@ public class DaoRetrait
 	 * @param retrait Le point de retrait que l'on souhaite ajouter ou modifier.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public void ajouterRetrait(BeanRetrait retrait) throws DaoException
+	public static void ajouterRetrait(BeanRetrait retrait) throws DaoException
 	{
 		try(Connection connexion = AccesBase.dbConnexion())
 		{
@@ -54,7 +54,7 @@ public class DaoRetrait
 	 * @return Le point de retrait recherché.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public BeanRetrait obtenirRetrait(int noArticle) throws DaoException
+	public static BeanRetrait obtenirRetrait(int noArticle) throws DaoException
 	{
 		BeanRetrait retraitTrouve = new BeanRetrait();
 		
@@ -99,7 +99,7 @@ public class DaoRetrait
 	 * @param retrait Le point de retrait.
 	 * @throws DaoException Exception propagée et gérée par la DaoException.
 	 */
-	public void modifierRetrait(BeanRetrait retrait) throws DaoException
+	public static void modifierRetrait(BeanRetrait retrait) throws DaoException
 	{
 		try(Connection connexion = AccesBase.dbConnexion())
 		{
@@ -123,7 +123,7 @@ public class DaoRetrait
 		}
 	}
 	
-	public void supprimerRetrait(BeanRetrait retrait)
+	public static void supprimerRetrait(BeanRetrait retrait)
 	{
 		
 	}

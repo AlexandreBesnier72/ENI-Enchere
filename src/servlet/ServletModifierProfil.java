@@ -20,15 +20,15 @@ import dao.DaoUtilisateur;
 public class ServletModifierProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
-		HttpSession session =(HttpSession) request.getSession();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		HttpSession session = request.getSession();
 		
 		String pseudo = (String) session.getAttribute("pseudo");
 
 		try
 		{
-			request.setAttribute("utilisateurActuel",daoUtilisateur.utilisateurParPseudo(pseudo));
+			request.setAttribute("utilisateurActuel",DaoUtilisateur.utilisateurParPseudo(pseudo));
 			request.getRequestDispatcher("/WEB-INF/membre/modifierProfil.jsp").forward(request, response);
 		}
 		catch (DaoException e)
@@ -38,15 +38,15 @@ public class ServletModifierProfil extends HttpServlet {
 		
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		int noUtilisateur = Integer.parseInt (request.getParameter("noUtilisateur"));
 		
-		DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
-		BeanUtilisateur utilisateurActuel = new BeanUtilisateur();
+		BeanUtilisateur utilisateurActuel;
 
 		try
 		{
-			utilisateurActuel = daoUtilisateur.utilisateurParNumero(noUtilisateur);		
+			utilisateurActuel = DaoUtilisateur.utilisateurParNumero(noUtilisateur);
 		
 			HttpSession session = request.getSession();
 			
@@ -89,13 +89,13 @@ public class ServletModifierProfil extends HttpServlet {
 					}	
 					
 					/* test sur email présent dans la base de données ou identique au précédent */
-					if((daoUtilisateur.isEmailExistant(email)) && !(email.equals(emailActuel))  )
+					if((DaoUtilisateur.isEmailExistant(email)) && !(email.equals(emailActuel))  )
 					{
 						erreurMsg = erreurMsg +  "Email existe déjà ou ne correspond pas à votre email actuel<br/>";
 						erreur = true;
 					}
 					/* test sur pseudo présent dans la base de données ou identique au précédent */
-					if((daoUtilisateur.isPseudoExistant(pseudo)) && !pseudo.equals(pseudoActuel)  )
+					if((DaoUtilisateur.isPseudoExistant(pseudo)) && !pseudo.equals(pseudoActuel)  )
 					{
 						erreurMsg = erreurMsg + "Pseudo existe déjà ou ne correspond pas à votre pseudo actuel<br/>";
 						erreur = true;
@@ -106,7 +106,7 @@ public class ServletModifierProfil extends HttpServlet {
 					{
 						if(ancienMdp.equals(motDePasseActuel))
 						{							
-							if(daoUtilisateur.isMotDePasseFormatOk(nouveauMdp) && nouveauMdp.equals(confirmationMdp))
+							if(DaoUtilisateur.isMotDePasseFormatOk(nouveauMdp) && nouveauMdp.equals(confirmationMdp))
 							{
 								motDePasse = nouveauMdp;							
 							}
@@ -133,23 +133,21 @@ public class ServletModifierProfil extends HttpServlet {
 					}
 					else
 					{
-						
 						utilisateurActuel.setPseudo(pseudo);
 						/* Au changement de pseudo, mise à jour de la variable pseudo au niveau session */
 						session.setAttribute("pseudo", pseudo);
 						utilisateurActuel.setNom(nom); 
 						utilisateurActuel.setPrenom(prenom);
-						utilisateurActuel.setEmail(email);								
+						utilisateurActuel.setEmail(email);
 						utilisateurActuel.setTelephone(telephone);
 						utilisateurActuel.setRue(rue);
 						utilisateurActuel.setCodePostal(codePostal);
 						utilisateurActuel.setVille(ville);
 						utilisateurActuel.setMotDePasse(motDePasse);	
 						
-						daoUtilisateur.modifierUtilisateur(utilisateurActuel);						
+						DaoUtilisateur.modifierUtilisateur(utilisateurActuel);
 	
 						session.setAttribute("succes", "Modification du profil réalisé avec succès");
-						
 					}	
 					
 					doGet(request,response);
@@ -157,7 +155,7 @@ public class ServletModifierProfil extends HttpServlet {
 				break;
 				
 				case "Supprimer" :						 
-						daoUtilisateur.supprimerUtilisateur(utilisateurActuel);
+						DaoUtilisateur.supprimerUtilisateur(utilisateurActuel);
 						session.setAttribute("pseudo","");						
 						response.sendRedirect(request.getContextPath()+"/deconnexion");					
 				break;

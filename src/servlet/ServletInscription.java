@@ -31,7 +31,6 @@ public class ServletInscription extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
-        DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
         BeanUtilisateur utilisateur = new BeanUtilisateur();
 
         String pseudo = request.getParameter("pseudo");
@@ -64,21 +63,21 @@ public class ServletInscription extends HttpServlet
 	            erreur = true;
 	        }
 	
-	        if (daoUtilisateur.isEmailExistant(email))
+	        if (DaoUtilisateur.isEmailExistant(email))
 	        {
 	            erreurMsg = erreurMsg + "<br/> Cet email est déjà utilisé.";
 	            session.setAttribute("erreur",erreurMsg);
 	            erreur = true;
 	        }
 	
-	        if (daoUtilisateur.isPseudoExistant(pseudo))
+	        if (DaoUtilisateur.isPseudoExistant(pseudo))
 	        {
 	            erreurMsg = erreurMsg + "<br/> Ce pseudo existe déjà.";
 	            session.setAttribute("erreur",erreurMsg);
 	            erreur = true;
 	        }
 	
-	        if (!daoUtilisateur.isMotDePasseFormatOk(motDePasse))
+	        if (!DaoUtilisateur.isMotDePasseFormatOk(motDePasse))
 	        {
 	        	erreurMsg = erreurMsg + "<br/>Le mot de passe n'est pas correct";
 	            session.setAttribute("erreur", erreurMsg);
@@ -97,7 +96,7 @@ public class ServletInscription extends HttpServlet
 	            utilisateur.setCodePostal(codePostal);
 	            utilisateur.setMotDePasse(motDePasse);
 	
-	            daoUtilisateur.ajouterUtilisateur(utilisateur);
+	            DaoUtilisateur.ajouterUtilisateur(utilisateur);
 	
 	            session.setAttribute("succes", "Connexion réussie");
 	            response.sendRedirect(request.getContextPath() + "/");

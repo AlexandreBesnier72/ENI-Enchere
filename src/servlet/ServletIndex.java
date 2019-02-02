@@ -34,16 +34,13 @@ public class ServletIndex extends HttpServlet
 		List<BeanCategorie> listeCategories;
 		Map<String, List<BeanArticleVendu>> listeArticles;
 		BeanFiltreRecherche filtreRecherche = null;
-		DaoCategorie daoCategories = new DaoCategorie();
-		DaoArticlesVendus daoArticlesVendus = new DaoArticlesVendus();
-		DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
 		int noUtilisateur;
 
 		try
 		{
 			if (!session.getAttribute("pseudo").equals(""))
 			{
-				noUtilisateur = daoUtilisateur.utilisateurParPseudo( (String) session.getAttribute("pseudo") ).getNoUtilisateur();
+				noUtilisateur = DaoUtilisateur.utilisateurParPseudo( (String) session.getAttribute("pseudo") ).getNoUtilisateur();
 			}
 			else
 			{
@@ -51,7 +48,7 @@ public class ServletIndex extends HttpServlet
 			}
 
 			// catégories
-			listeCategories = daoCategories.listerCategories();
+			listeCategories = DaoCategorie.listerCategories();
 
 			if (session.getAttribute("filtreRecherche") != null)
 			{
@@ -60,7 +57,7 @@ public class ServletIndex extends HttpServlet
 			request.getSession().setAttribute("categories", listeCategories);
 
 			// articles
-			listeArticles = daoArticlesVendus.rechercher(filtreRecherche, noUtilisateur);
+			listeArticles = DaoArticlesVendus.rechercher(filtreRecherche, noUtilisateur);
 
 			// hydratation des listes d'article
 			if (listeArticles.get("encheresO") != null)

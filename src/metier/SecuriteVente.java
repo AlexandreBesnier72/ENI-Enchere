@@ -38,8 +38,7 @@ public class SecuriteVente
 	        {
 	            System.err.println("Parsage de la date échoué.");
 	        }
-	        DaoCategorie daoCategorie = new DaoCategorie();
-	        int nombreCategorie = daoCategorie.listerCategories().size();
+	        int nombreCategorie = DaoCategorie.listerCategories().size();
 	
 	        // nom
 	        if (articleVendu.getNomArticle().length() < 1)

@@ -20,9 +20,9 @@ public class AccesBase
 	 */
 	public static Connection dbConnexion() throws SQLException
 	{
-		Connection connexion = null;
-		InitialContext context = null;
-		DataSource dataSource= null;
+		Connection connexion;
+		InitialContext context;
+		DataSource dataSource;
 		
 		// Obtenir une référence sur le contexte initial JNDI
 		try

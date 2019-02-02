@@ -23,13 +23,13 @@ import dao.DaoRetrait;
 public class ServletAquisition extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DaoRetrait daoRetrait = new DaoRetrait();
-		BeanRetrait retrait = new BeanRetrait();
-		BeanArticleVendu article = new BeanArticleVendu();
-		BeanUtilisateur utilisateur = new BeanUtilisateur();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		BeanRetrait retrait;
+		BeanArticleVendu article;
+		BeanUtilisateur utilisateur;
 		
-		HttpSession session =(HttpSession) request.getSession();
+		HttpSession session = request.getSession();
 		
 		/* Récupérationde l'objet article dans Session */
 		article = (BeanArticleVendu) session.getAttribute("article");
@@ -37,7 +37,7 @@ public class ServletAquisition extends HttpServlet {
 		/* Récupération de l'objet retrait lié à l'article */
 		try 
 		{
-			retrait = daoRetrait.obtenirRetrait(article.getNoArticle());		
+			retrait = DaoRetrait.obtenirRetrait(article.getNoArticle());
 		
 			/* Récupération de l'objet utlisateur lié à l'article */
 			utilisateur = article.getUtilisateur();
@@ -54,8 +54,8 @@ public class ServletAquisition extends HttpServlet {
 		}
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		doGet(request, response);
 	}
 	

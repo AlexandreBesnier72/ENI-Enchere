@@ -39,22 +39,17 @@ public class ServletEnchere extends HttpServlet
         HttpSession session = request.getSession();
         String erreur;
 
-        // dao
-        DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
-        DaoEncheres daoEncheres = new DaoEncheres();
-        DaoArticlesVendus daoArticlesVendus = new DaoArticlesVendus();
-
         // bean
         BeanArticleVendu articleVendu = (BeanArticleVendu) session.getAttribute("article");
         BeanEnchere enchere = new BeanEnchere();
         BeanUtilisateur utilisateur = null;
         try
         {
-	        utilisateur = daoUtilisateur.utilisateurParPseudo( (String) session.getAttribute("pseudo") );
+	        utilisateur = DaoUtilisateur.utilisateurParPseudo( (String) session.getAttribute("pseudo") );
 	       
 	        BeanEnchere derniereEnchere = null;
 	       
-	        derniereEnchere = daoEncheres.derniereEnchere( articleVendu.getNoArticle() );
+	        derniereEnchere = DaoEncheres.derniereEnchere( articleVendu.getNoArticle() );
 	     
 	        // récupère le montant du formulaire
 	        int montantEnchere = Integer.valueOf( request.getParameter("montantEnchere") );
@@ -65,7 +60,7 @@ public class ServletEnchere extends HttpServlet
 	        // recrédite l'encherriseur précédent
 	        if (derniereEnchere != null)
 	        {
-	            daoUtilisateur.recrediterUtilisateur( derniereEnchere );
+	            DaoUtilisateur.recrediterUtilisateur( derniereEnchere );
 	        }
 	
 	        // créer la nouvelle enchère
@@ -77,13 +72,13 @@ public class ServletEnchere extends HttpServlet
 	        if (erreur == null)
 	        {
 	            // envoie la nouvelle enchère	            
-	                daoEncheres.nouvelleEnchere(enchere);	           
+				DaoEncheres.nouvelleEnchere(enchere);
 	
 	            // débite les crédits du nouvel enchérisseur	           
-	                daoUtilisateur.debiterUtilisateur(utilisateur, enchere.getMontantEnchere());	           
+				DaoUtilisateur.debiterUtilisateur(utilisateur, enchere.getMontantEnchere());
 	
 	            // met à jour l'article	            
-	                daoArticlesVendus.modifierPrixArticle(articleVendu.getNoArticle(), enchere.getMontantEnchere());
+				DaoArticlesVendus.modifierPrixArticle(articleVendu.getNoArticle(), enchere.getMontantEnchere());
 	           
 	            session.setAttribute("succes", "Enchère réussie");
 	            response.sendRedirect(request.getContextPath() + "/");
@@ -111,10 +106,6 @@ public class ServletEnchere extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
-        DaoArticlesVendus daoArticlesVendus = new DaoArticlesVendus();
-		DaoRetrait daoRetrait = new DaoRetrait();
-		DaoEncheres doaEnchere = new DaoEncheres();
-		DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
 		BeanArticleVendu articleVendu = null;
 		BeanRetrait retrait = null;
 		BeanEnchere enchere = null;
@@ -125,24 +116,24 @@ public class ServletEnchere extends HttpServlet
 			{
 				int noArticle = Integer.valueOf( request.getParameter("article") );
 				/* Récupération de l'objet retrait */
-				retrait = daoRetrait.obtenirRetrait(noArticle);
+				retrait = DaoRetrait.obtenirRetrait(noArticle);
 				session.setAttribute("retrait", retrait);
 	
-				articleVendu = daoArticlesVendus.articleParNumero(noArticle);
+				articleVendu = DaoArticlesVendus.articleParNumero(noArticle);
 	
 				String pseudoUtilisateur = (String) session.getAttribute("pseudo");
 				String pseudoVendeur = null;
 				String pseudoDerniereEnchere = null;
 	
 				// Récupération du pseudo de l'utilisateur qui à fait la dernière enchère
-				enchere  = doaEnchere.derniereEnchere( noArticle);
+				enchere  = DaoEncheres.derniereEnchere( noArticle);
 	
 				if(enchere != null)
 				{
-					pseudoDerniereEnchere = (daoUtilisateur.utilisateurParNumero(enchere.getNoUtilisateur())).getPseudo();
+					pseudoDerniereEnchere = (DaoUtilisateur.utilisateurParNumero(enchere.getNoUtilisateur())).getPseudo();
 				}
 	
-				pseudoVendeur = daoUtilisateur.utilisateurParNumero(articleVendu.getNoUtilisateur()).getPseudo();
+				pseudoVendeur = DaoUtilisateur.utilisateurParNumero(articleVendu.getNoUtilisateur()).getPseudo();
 	
 				Date dateCourante = new Date();
 				Date dateExpiration = null;

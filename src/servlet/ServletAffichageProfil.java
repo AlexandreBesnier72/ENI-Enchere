@@ -23,11 +23,10 @@ public class ServletAffichageProfil extends HttpServlet {
 		/* récupération du pseudo cliqué */
 		String pseudoReq = request.getParameter("pseudo");
 		
-	     DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
 	     /* récupération l'utilisateur du pseudo cliqué */
 		try
 		{
-			request.setAttribute("utilisateur", daoUtilisateur.utilisateurParPseudo(pseudoReq));
+			request.setAttribute("utilisateur", DaoUtilisateur.utilisateurParPseudo(pseudoReq));
 		
 		
 			// on repousse pseudoRequete

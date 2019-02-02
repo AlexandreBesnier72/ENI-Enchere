@@ -16,7 +16,7 @@ import helper.AccesBase;
  */
 public class DaoCategorie 
 {
-	// D�finition des requ�tes DAO
+	// Définition des requètes DAO
 	private static final String LISTER_TOUT = "SELECT * FROM CATEGORIES;";
 	private static final String LISTER_PAR_NUMERO = "SELECT * FROM CATEGORIES WHERE no_categorie=?;";
 	
@@ -26,7 +26,7 @@ public class DaoCategorie
 	 * @return listeCategories Liste des catégories.
 	 * @throws DaoException Propagation de l'exception.
 	 */
-	public List<BeanCategorie> listerCategories() throws DaoException
+	public static List<BeanCategorie> listerCategories() throws DaoException
 	{
 		List<BeanCategorie> listeCategories = new ArrayList<BeanCategorie>();
 		
@@ -66,7 +66,7 @@ public class DaoCategorie
 	 * @return Les catégories.
 	 * @throws DaoException Propage l'exception.
 	 */
-	public BeanCategorie categorieParNumero(int noCategorie) throws DaoException
+	public static BeanCategorie categorieParNumero(int noCategorie) throws DaoException
 	{
 		
 		BeanCategorie categorieTrouvee = new BeanCategorie();

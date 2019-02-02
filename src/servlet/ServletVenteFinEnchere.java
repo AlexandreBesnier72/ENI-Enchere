@@ -23,27 +23,26 @@ import dao.DaoUtilisateur;
 public class ServletVenteFinEnchere extends HttpServlet {
 	private static final long serialVersionUID = 1L;   
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DaoUtilisateur daoUtilisateur = new DaoUtilisateur();
-		DaoEncheres daoEncheres = new DaoEncheres();
-		BeanArticleVendu article = new BeanArticleVendu();
-		BeanUtilisateur utilisateurVendeur = new BeanUtilisateur();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		BeanArticleVendu article;
+		BeanUtilisateur utilisateurVendeur;
 		BeanUtilisateur utilisateurAcheteur = new BeanUtilisateur();
-		BeanEnchere enchere = new BeanEnchere();
-		boolean pasEnchere = false;
+		BeanEnchere enchere;
+		boolean pasEnchere;
 		
-		HttpSession session =(HttpSession) request.getSession();
+		HttpSession session = request.getSession();
 		
 		/* Récupérationde l'objet article dans Session */
 		article = (BeanArticleVendu) session.getAttribute("article");
 		try {
 			
-			enchere = daoEncheres.derniereEnchere(article.getNoArticle());		
+			enchere = DaoEncheres.derniereEnchere(article.getNoArticle());
 		
 			/* Récupération de lutilisateur acquereur à partir de l'enchere */
 			if (enchere != null)
 			{
-				utilisateurAcheteur = daoUtilisateur.utilisateurParNumero(enchere.getNoUtilisateur());
+				utilisateurAcheteur = DaoUtilisateur.utilisateurParNumero(enchere.getNoUtilisateur());
 				pasEnchere = false;
 			}
 			else {
@@ -66,8 +65,8 @@ public class ServletVenteFinEnchere extends HttpServlet {
 		}		
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		doGet(request, response);
 	}
 	
