@@ -1,0 +1,12 @@
+
+\.idea/
+
+out/
+
+Generation_jeu_essais\.sqlgen
+
+*.iml
+
+web/WEB-INF/lib/
+
+web/META-INF/context\.xml

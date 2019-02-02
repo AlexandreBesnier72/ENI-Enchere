@@ -1,0 +1,11 @@
+form fieldset
+{
+    border: 1px solid #ccc;
+}
+
+form fieldset legend
+{
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}

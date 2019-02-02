@@ -1,0 +1,55 @@
+/* header */
+#rafraichir
+{
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	color: #ffffff;
+	font-size: 30px;
+	transition: 1s;
+}
+
+#rafraichir:hover
+{
+	transform: rotate(360deg);
+}
+
+/* recherche */
+#recherche
+{
+	background: #ffffff;
+	box-shadow: 0 0 20px #000000;
+}
+
+#recherche .btn-large
+{
+	width: 100%;
+}
+
+/* encheres */
+.sectionEncheres
+{
+	margin: 10px 25px;
+}
+
+.sectionEncheres .encheres
+{
+	background-color:#fff;
+	padding: 20px;
+	box-shadow: 0 0 12px #000;
+}
+
+.sectionEncheres .encheres a
+{
+	color: black;
+}
+
+.sectionEncheres .encheres p
+{
+	margin-bottom: 5px;
+}
+
+.sectionEncheres .encheres img
+{
+	width: 120px;
+}

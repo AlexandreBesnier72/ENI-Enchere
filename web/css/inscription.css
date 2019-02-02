@@ -1,0 +1,51 @@
+body
+{
+    background: #333;
+    padding: 20px;
+}
+
+form
+{
+    background: #ffffff;
+    width: 700px;
+    padding: 10px;
+    margin-top: 150px;
+    border-radius: 3px;
+    box-shadow: 0 0 30px #000;
+}
+
+/* responsive */
+@media (max-width: 750px)
+{
+    html
+    {
+        height: 100%;
+    }
+
+    body
+    {
+        height: 100%;
+    }
+
+    h1
+    {
+        padding: 20px;
+        margin: 0;
+    }
+
+    section.d-flex
+    {
+        height: calc(100% - 88px);
+    }
+
+    form
+    {
+        height: 100%;
+        margin-top: 0;
+    }
+
+    form h2
+    {
+        margin: 40px 10px 80px 10px;
+    }
+}
